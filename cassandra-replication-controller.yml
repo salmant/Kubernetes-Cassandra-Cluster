@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    labels:
+        name: cassandra
+    name: cassandra
+spec:
+    selector:
+        name: cassandra
+    template:
+        metadata:
+            labels:
+                name: cassandra
+        spec:
+            containers:
+                - image: salmant/kubernetes-cassandra-cluster
+                  name: cassandra
+                  ports:
+                  - containerPort: 9042
+                    name: cql-native
+                  - containerPort: 9160
+                    name: thrift-clients
+                  - containerPort: 7199
+                    name: jmx
+                  volumeMounts:
+                  - mountPath: /var/lib/cassandra/data
+                    name: cassandra-claim
+            volumes:
+            - name: cassandra-claim
+              persistentVolumeClaim:
+                  claimName: cassandra-volume-claim
+

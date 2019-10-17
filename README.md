@@ -127,7 +127,7 @@ To start more Cassandra Pods and have them join the cluster, you may scale the C
 
 `kubectl scale replicationcontroller  cassandra --replicas=2`
 
-----------------------------
+```
 NAME                                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
 service/cassandra                    ClusterIP   10.107.82.75   <none>        9042/TCP,9160/TCP,7199/TCP   99s
 service/cassandra-headless-service   ClusterIP   None           <none>        7000/TCP,7001/TCP            99s
@@ -142,7 +142,7 @@ persistentvolumeclaim/cassandra-volume-claim   Bound    cassandra-volume   1Gi  
 
 NAME                              DESIRED   CURRENT   READY   AGE
 replicationcontroller/cassandra   2         2         2       98s
-----------------------------
+```
 
 <br>
 ## Step 10: Check the status of the Cassandra ring

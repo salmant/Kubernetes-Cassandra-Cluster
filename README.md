@@ -38,10 +38,10 @@ Now you can build the Docker image from the `Dockerfile`.
 ## Step 2: Create a Cassandra Headless Service
 A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them.
 Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic.
-While communicating with the service's cluster IP, each connection to the service is forwarded to one randomly selected backing Pod.
+While communicating with the Service's cluster IP, each connection to the service is forwarded to one randomly selected backing Pod.
 It should be noted that Services can be exposed in different ways by specifying a type in Service Spec:
-* `ClusterIP: 10.x.x.x` --->  This is the default setting. It exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
-* `clusterIP: None` ---> It is called Headless Service. If a client needs to connect to all of those Pods, Headless Service makes us able to discover Pod IPs through DNS lookups.
+* `ClusterIP: 10.x.x.x` This is the default setting. It exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+* `clusterIP: None` It is called Headless Service. If a client needs to connect to all of those Pods, Headless Service makes us able to discover Pod IPs through DNS lookups.
 
 <br>
 Headless Service provides a DNS address for each associated Pod. It means that it allows the system to get the IP addresses of Pods.

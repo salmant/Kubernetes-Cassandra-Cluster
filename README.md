@@ -24,9 +24,8 @@ Therefore, if a new Cassandra Pod is instantiated, it should automatically disco
 In Kubernetes, Headless Service provides a DNS address for each associated Pod.
 To this end, we need to install package "dnsutils" in every Cassandra container. 
 This is because the "dnsutils" package is a very commonly used tool for resolving DNS queries.
-
 <br>Create the Dockerfile file: [Dockerfile](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/Dockerfile)
-<br><br>
+<br>
 As mentioned before, when a container is instantiated, all the IP addresses of already existing Cassandra Pods considered as seeds should be discovered.
 To this end, we use command `nslookup` to perform a DNS query.
 
@@ -35,7 +34,6 @@ To this end, we use command `nslookup` to perform a DNS query.
 Now you can build the Docker image from the Dockerfile.
 
 `docker build -t salmant/kubernetes-cassandra-cluster -f Dockerfile .`
-
 <br>
 ## Step 2: Create a Cassandra Headless Service
 A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them.
@@ -145,7 +143,7 @@ replicationcontroller/cassandra   2         2         2       98s
 ```
 
 <br>
-## Step 10: Check the status of the Cassandra ring
+# Step 10: Check the status of the Cassandra ring
 You may run the Cassandra nodetool which shown bellow to display the status of the ring.
 
 `kubectl exec -it cassandra-rbdpn -- nodetool status`
@@ -161,7 +159,7 @@ UN  10.244.1.3  102.2 KB   256          100.0%            f7d90414-187d-458b-acf
 ```
 
 <br>
-## Step 11: Free the Cassandra Cluster
+# Step 11: Free the Cassandra Cluster
 In order to free all resources allocated to the Cassandra Cluster and stop it, you may execute the following commands respectively.
 
 <br>`kubectl scale rc cassandra --replicas=0`
@@ -169,10 +167,4 @@ In order to free all resources allocated to the Cassandra Cluster and stop it, y
 <br>`kubectl delete rc cassandra`
 <br>`kubectl delete pvc cassandra-volume-claim`
 <br>`kubectl delete pv cassandra-volume`
-
-
-
-
-
-
 

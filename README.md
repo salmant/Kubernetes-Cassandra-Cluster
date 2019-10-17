@@ -45,7 +45,7 @@ It should be noted that Services can be exposed in different ways by specifying 
 <br>
 Headless Service provides a DNS address for each associated Pod. It means that it allows the system to get the IP addresses of Pods.
 Also if Pods themselves need to connect to all the other Pods, we need to create Headless Service.
-For example, if we are going to create a Cassandra cluster which includes seed Cassandra Pod and other newly extra Cassandra Pods, the Headless Service is necessary. 
+For example, if we are going to create a Cassandra cluster which includes seed Cassandra Pod and other newly extra Cassandra Pods, the Headless Service is necessary.
 The IP address of the seed Pods need to be defined as an environment variable called `CASSANDRA_SEEDS` for other further instantiated Cassandra Pods. 
 Moreover, all Cassandra Pods should be communicate with each other through two port named intra-node-communication (`7000`) and tls-intra-node-communication (`7001`). 
 

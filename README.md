@@ -28,9 +28,11 @@ This is because the "dnsutils" package is a very commonly used tool for resolvin
 <br>
 As mentioned before, when a container is instantiated, all the IP addresses of already existing Cassandra Pods considered as seeds should be discovered.
 To this end, we use command `nslookup` to perform a DNS query.
+
 <br>Create the Shell file: [pre-docker-entrypoint.sh](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/pre-docker-entrypoint.sh)
-<br>
+<br><br>
 Now you can build the Docker image from the Dockerfile.
+
 `docker build -t salmant/kubernetes-cassandra-cluster -f Dockerfile .`
 <br>
 ## Step 2: Create a Cassandra Headless Service
@@ -46,23 +48,27 @@ Also if Pods themselves need to connect to all the other Pods, we need to create
 For example, if we are going to create a Cassandra cluster which includes seed Cassandra Pod and other newly extra Cassandra Pods, the Headless Service is necessary. 
 The IP address of the seed Pods need to be defined as an environment variable called `CASSANDRA_SEEDS` for other further instantiated Cassandra Pods. 
 Moreover, all Cassandra Pods should be communicate with each other through two port named intra-node-communication (7000) and tls-intra-node-communication (7001). 
+
 <br>Create the YAML file: [cassandra-headless-service.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-headless-service.yml)
-<br>
+<br><br>
 It should be noted that all Cassandra Pods are determined by a selector called "cassandra".
 <br>
 ## Step 3: Create a Cassandra ClusterIP Service
 A ClusterIP Service, which is the default Kubernetes Service, gives us a Service called ClusterIP Service inside the cluster and it will be reachable by clients inside the cluster.
 It should be noted that there is no external access by default. If you would like to have access to the ClusterIP Service from outside the cluster like the Internet, there different approaches to be used such as making a Kubernetes Proxy.
 Again, it should be noted that all Cassandra Pods are determined by a selector called "cassandra".
+
 <br>Create the YAML file: [cassandra-clusterip-service.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-clusterip-service.yml)
-<br>
+<br><br>
 ## Step 4: Create a Cassandra Persistent Volume
+
 A container’s file system lives only as long as the container exists. 
 Therefore, if a container is terminated or restarts, filesystem changes are all lost. 
 For more consistent storage that is independent of the container, you can use a PersistentVolume. 
 PersistentVolume is an interface to the actual backing storage.
+
 <br>Create the YAML file: [cassandra-persistent-volume.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-persistent-volume.yml)
-<br>
+<br><br>
 Thefore, you can find all data persistently stored on the Docker host machine in folder `/data/cassandra` where Cassandra Pod run.
 Here, the Access Mode is defined as ReadWriteOnce that means the Volume can be mounted as read-write by a single node.
 ReadWriteOnce is the most common use case for Persistent Disks and works as the default access mode for most applications.
@@ -70,18 +76,21 @@ ReadWriteOnce is the most common use case for Persistent Disks and works as the 
 ## Step 5: Create a Cassandra Persistent Volume Claim
 A PersistentVolumeClaim is a request for a PersistentVolume with specific attributes such as storage size. 
 In between, the system matches the claim to an available volume and binds them together.
+
 <br>Create the YAML file: [cassandra-persistent-volume-claim.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-persistent-volume-claim.yml)
-<br>
+<br><br>
 ## Step 6: Create Cassandra Replication Controller
 ReplicationController is used to replicate Pods. It means that ReplicationController creates multiple copies of Cassandra Pod and keep them running. 
 ReplicationController makes sure that there is always a especific number of pods running. Default number, if not especified, is a single one. 
 In other words, ReplicationController creates by default only one Cassandra Pod, if the replica set number is not determined. 
+
 <br>Create the YAML file: [cassandra-replication-controller.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-replication-controller.yml)
-<br>
+<br><br>
 The Cassandra Pod has a Volume of type "persistentVolumeClaim" that lasts for the life of the Pod, also if the container restarts or even terminates. As mentioned before, data is stored where Persistent Volume points to.
 <br>
 ## Step 7: Deploy the Cassandra Cluster
 By executing the following commands respectively, the Cassandra Cluster which initially contains only one Cassandra Pod will be deployed.
+
 <br>`kubectl create -f cassandra-headless-service.yml`
 <br>`kubectl create -f cassandra-clusterip-service.yml`
 <br>`kubectl create -f cassandra-persistent-volume.yml`
@@ -90,6 +99,7 @@ By executing the following commands respectively, the Cassandra Cluster which in
 <br>
 ## Step 8: See the Cassandra Cluster information and enjoy
 The Cassandra Cluster has been deployed to Kubernetes. Now, you can run the following command for details.
+
 `kubectl get deployment,svc,pods,pvc,rc`
 
 ----------------------------
@@ -112,6 +122,7 @@ replicationcontroller/cassandra   1         1         1       20s
 ## Step 9: Scale the Cassandra Cluster
 
 To start more Cassandra Pods and have them join the cluster, you may scale the Cassandra Replication Controller which is basically created.
+
 `kubectl scale replicationcontroller  cassandra --replicas=2`
 
 ```
@@ -134,6 +145,7 @@ replicationcontroller/cassandra   2         2         2       98s
 <br>
 # Step 10: Check the status of the Cassandra ring
 You may run the Cassandra nodetool which shown bellow to display the status of the ring.
+
 `kubectl exec -it cassandra-rbdpn -- nodetool status`
 
 ```
@@ -149,9 +161,9 @@ UN  10.244.1.3  102.2 KB   256          100.0%            f7d90414-187d-458b-acf
 <br>
 # Step 11: Free the Cassandra Cluster
 In order to free all resources allocated to the Cassandra Cluster and stop it, you may execute the following commands respectively.
+
 <br>`kubectl scale rc cassandra --replicas=0`
 <br>`kubectl delete service cassandra cassandra-headless-service`
 <br>`kubectl delete rc cassandra`
 <br>`kubectl delete pvc cassandra-volume-claim`
 <br>`kubectl delete pv cassandra-volume`
-

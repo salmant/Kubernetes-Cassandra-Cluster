@@ -24,42 +24,13 @@ In Kubernetes, Headless Service provides a DNS address for each associated Pod.
 To this end, we need to install package "dnsutils" in every Cassandra container. 
 Because the "dnsutils" package is a very commonly used tool for resolving DNS queries.
 
-Create the Dockerfile file: Dockerfile
--------------------------
-FROM cassandra:2.2
-
-MAINTAINER "Salman Taherizadeh - Jozef Stefan Institute"
-
-RUN apt-get update && apt-get install -yq dnsutils && apt-get clean && rm -rf /var/lib/apt/lists
-
-COPY pre-docker-entrypoint.sh /
-RUN chmod 777 /pre-docker-entrypoint.sh
-
-ENTRYPOINT ["/pre-docker-entrypoint.sh"]
-
-CMD ["cassandra", "-f"]
--------------------------
-
-
+<br>Create the Dockerfile file: [Dockerfile](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/Dockerfile)
+<br><br>
 As mentioned before, when a container is instantiated, all the IP addresses of already existing Cassandra Pods considered as seeds should be discovered.
 To this end, we use command "nslookup" to perform a DNS query.
 
-Create the Shell file: pre-docker-entrypoint.sh
--------------------------
-#!/bin/bash
-
-# Giving some time to be added as a new Pod to the cluster before executing the DNS query.
-sleep 10
-
-current_Pod_ip=$(hostname --ip-address)
-
-CASSANDRA_SEEDS=$(nslookup cassandra-headless-service | grep -v $current_Pod_ip | sort | awk '/^Address: / { print $2 }' | xargs | sed -e 's/ /,/g')
-
-export CASSANDRA_SEEDS
-
-/docker-entrypoint.sh "$@"
--------------------------
-
+<br>Create the Shell file: [pre-docker-entrypoint.sh](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/pre-docker-entrypoint.sh)
+<br><br>
 Now you can build the Docker image from the Dockerfile.
 
 docker build -t salmant/kubernetes-cassandra-cluster -f Dockerfile .

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Giving some time to be added as a new Pod to the cluster before executing the DNS query.
+# Giving the Cassandra container some time to be added as a new Pod to the Cassandra Cluster before executing the DNS query.
 sleep 10
 
 current_Pod_ip=$(hostname --ip-address)

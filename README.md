@@ -102,7 +102,7 @@ The Cassandra Cluster has been deployed to Kubernetes. Now, you can run the foll
 
 `kubectl get deployment,svc,pods,pvc,rc`
 
-----------------------------
+```
 NAME                                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
 service/cassandra                    ClusterIP   10.107.82.75   <none>        9042/TCP,9160/TCP,7199/TCP   21s
 service/cassandra-headless-service   ClusterIP   None           <none>        7000/TCP,7001/TCP            21s
@@ -116,8 +116,7 @@ persistentvolumeclaim/cassandra-volume-claim   Bound    cassandra-volume   1Gi  
 
 NAME                              DESIRED   CURRENT   READY   AGE
 replicationcontroller/cassandra   1         1         1       20s
-
-
+```
 <br>
 ## Step 9: Scale the Cassandra Cluster
 

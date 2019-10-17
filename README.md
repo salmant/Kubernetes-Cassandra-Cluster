@@ -42,6 +42,7 @@ While communicating with the service's cluster IP, each connection to the servic
 It should be noted that Services can be exposed in different ways by specifying a type in Service Spec:
 * `ClusterIP: 10.x.x.x` --->  This is the default setting. It exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
 * `clusterIP: None` ---> It is called Headless Service. If a client needs to connect to all of those Pods, Headless Service makes us able to discover Pod IPs through DNS lookups.
+
 <br>
 Headless Service provides a DNS address for each associated Pod. It means that it allows the system to get the IP addresses of Pods.
 Also if Pods themselves need to connect to all the other Pods, we need to create Headless Service.
@@ -54,8 +55,8 @@ Moreover, all Cassandra Pods should be communicate with each other through two p
 It should be noted that all Cassandra Pods are determined by a selector called `cassandra`.
 <br>
 ## Step 3: Create a Cassandra ClusterIP Service
-A ClusterIP Service, which is the default Kubernetes Service, gives us a Service called ClusterIP Service inside the cluster and it will be reachable by clients inside the cluster.
-It should be noted that there is no external access by default. If you would like to have access to the ClusterIP Service from outside the cluster like the Internet, there different approaches to be used such as making a Kubernetes Proxy.
+A `ClusterIP` Service, which is the default Kubernetes Service, gives us a Service called `ClusterIP` Service inside the cluster and it will be reachable by clients inside the cluster.
+It should be noted that there is no external access by default. If you would like to have access to the `ClusterIP` Service from outside the cluster like the Internet, there different approaches to be used such as making a Kubernetes Proxy.
 Again, it should be noted that all Cassandra Pods are determined by a selector called "cassandra".
 
 <br>Create the YAML file: [cassandra-clusterip-service.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-clusterip-service.yml)
@@ -64,29 +65,29 @@ Again, it should be noted that all Cassandra Pods are determined by a selector c
 
 A container's file system lives only as long as the container exists. 
 Therefore, if a container is terminated or restarts, filesystem changes are all lost. 
-For more consistent storage that is independent of the container, you can use a PersistentVolume. 
-PersistentVolume is an interface to the actual backing storage.
+For more consistent storage that is independent of the container, you can use a `PersistentVolume`. 
+`PersistentVolume` is an interface to the actual backing storage.
 
 <br>Create the YAML file: [cassandra-persistent-volume.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-persistent-volume.yml)
 <br><br>
 Thefore, you can find all data persistently stored on the Docker host machine in folder `/data/cassandra` where Cassandra Pod run.
-Here, the Access Mode is defined as ReadWriteOnce that means the Volume can be mounted as read-write by a single node.
-ReadWriteOnce is the most common use case for Persistent Disks and works as the default access mode for most applications.
+Here, the Access Mode is defined as `ReadWriteOnce` that means the Volume can be mounted as read-write by a single node.
+`ReadWriteOnce` is the most common use case for Persistent Disks and works as the default access mode for most applications.
 <br>
 ## Step 5: Create a Cassandra Persistent Volume Claim
-A PersistentVolumeClaim is a request for a PersistentVolume with specific attributes such as storage size. 
+A `PersistentVolumeClaim` is a request for a `PersistentVolume` with specific attributes such as storage size. 
 In between, the system matches the claim to an available volume and binds them together.
 
 <br>Create the YAML file: [cassandra-persistent-volume-claim.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-persistent-volume-claim.yml)
 <br><br>
 ## Step 6: Create Cassandra Replication Controller
-ReplicationController is used to replicate Pods. It means that ReplicationController creates multiple copies of Cassandra Pod and keep them running. 
-ReplicationController makes sure that there is always a especific number of pods running. Default number, if not especified, is a single one. 
-In other words, ReplicationController creates by default only one Cassandra Pod, if the replica set number is not determined. 
+`ReplicationController` is used to replicate Pods. It means that `ReplicationController` creates multiple copies of Cassandra Pod and keep them running. 
+`ReplicationController` makes sure that there is always a especific number of pods running. Default number, if not especified, is a single one. 
+In other words, `ReplicationController` creates by default only one Cassandra Pod, if the replica set number is not determined. 
 
 <br>Create the YAML file: [cassandra-replication-controller.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-replication-controller.yml)
 <br><br>
-The Cassandra Pod has a Volume of type "persistentVolumeClaim" that lasts for the life of the Pod, also if the container restarts or even terminates. As mentioned before, data is stored where Persistent Volume points to.
+The Cassandra Pod has a Volume of type `persistentVolumeClaim` that lasts for the life of the Pod, also if the container restarts or even terminates. As mentioned before, data is stored where Persistent Volume points to.
 <br>
 ## Step 7: Deploy the Cassandra Cluster
 By executing the following commands respectively, the Cassandra Cluster which initially contains only one Cassandra Pod will be deployed.

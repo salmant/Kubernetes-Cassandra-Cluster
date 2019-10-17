@@ -22,8 +22,8 @@ There is an environment variable called `CASSANDRA_SEEDS` which needs to be defi
 We need to set this environment variable as the IP addresses of already existing Cassandra Pods as seeds. 
 Therefore, if a new Cassandra Pod is instantiated, it should automatically discover all seed Pods' IP addresses via DNS lookups. 
 In Kubernetes, Headless Service provides a DNS address for each associated Pod.
-To this end, we need to install package "dnsutils" in every Cassandra container. 
-This is because the "dnsutils" package is a very commonly used tool for resolving DNS queries.
+To this end, we need to install package `dnsutils` in every Cassandra container. 
+This is because the `dnsutils` package is a very commonly used tool for resolving DNS queries.
 <br>Create the Dockerfile file: [Dockerfile](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/Dockerfile)
 <br>
 As mentioned before, when a container is instantiated, all the IP addresses of already existing Cassandra Pods considered as seeds should be discovered.
@@ -31,7 +31,7 @@ To this end, we use command `nslookup` to perform a DNS query.
 
 <br>Create the Shell file: [pre-docker-entrypoint.sh](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/pre-docker-entrypoint.sh)
 <br><br>
-Now you can build the Docker image from the Dockerfile.
+Now you can build the Docker image from the `Dockerfile`.
 
 `docker build -t salmant/kubernetes-cassandra-cluster -f Dockerfile .`
 <br>
@@ -39,7 +39,7 @@ Now you can build the Docker image from the Dockerfile.
 A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them.
 Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic.
 While communicating with the service's cluster IP, each connection to the service is forwarded to one randomly selected backing Pod.
-It should be noted that Services can be exposed in different ways by specifying a type in the ServiceSpec:
+It should be noted that Services can be exposed in different ways by specifying a type in Service Spec:
 * `ClusterIP: 10.x.x.x` --->  This is the default setting. It exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
 * `clusterIP: None` ---> It is called Headless Service. If a client needs to connect to all of those Pods, Headless Service makes us able to discover Pod IPs through DNS lookups.
 <br>
@@ -62,7 +62,7 @@ Again, it should be noted that all Cassandra Pods are determined by a selector c
 <br><br>
 ## Step 4: Create a Cassandra Persistent Volume
 
-A container’s file system lives only as long as the container exists. 
+A container's file system lives only as long as the container exists. 
 Therefore, if a container is terminated or restarts, filesystem changes are all lost. 
 For more consistent storage that is independent of the container, you can use a PersistentVolume. 
 PersistentVolume is an interface to the actual backing storage.

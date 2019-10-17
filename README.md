@@ -47,11 +47,11 @@ Headless Service provides a DNS address for each associated Pod. It means that i
 Also if Pods themselves need to connect to all the other Pods, we need to create Headless Service.
 For example, if we are going to create a Cassandra cluster which includes seed Cassandra Pod and other newly extra Cassandra Pods, the Headless Service is necessary. 
 The IP address of the seed Pods need to be defined as an environment variable called `CASSANDRA_SEEDS` for other further instantiated Cassandra Pods. 
-Moreover, all Cassandra Pods should be communicate with each other through two port named intra-node-communication (7000) and tls-intra-node-communication (7001). 
+Moreover, all Cassandra Pods should be communicate with each other through two port named intra-node-communication (`7000`) and tls-intra-node-communication (`7001`). 
 
 <br>Create the YAML file: [cassandra-headless-service.yml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-headless-service.yml)
 <br><br>
-It should be noted that all Cassandra Pods are determined by a selector called "cassandra".
+It should be noted that all Cassandra Pods are determined by a selector called `cassandra`.
 <br>
 ## Step 3: Create a Cassandra ClusterIP Service
 A ClusterIP Service, which is the default Kubernetes Service, gives us a Service called ClusterIP Service inside the cluster and it will be reachable by clients inside the cluster.

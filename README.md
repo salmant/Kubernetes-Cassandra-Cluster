@@ -121,6 +121,7 @@ NAME                              DESIRED   CURRENT   READY   AGE
 replicationcontroller/cassandra   1         1         1       20s
 ```
 <br>
+
 # Step 9: Scale the Cassandra Cluster
 To start more Cassandra Pods and have them join the cluster, you may scale the Cassandra Replication Controller which is basically created.
 
@@ -143,6 +144,7 @@ NAME                              DESIRED   CURRENT   READY   AGE
 replicationcontroller/cassandra   2         2         2       98s
 ```
 <br>
+
 # Step 10: Check the status of the Cassandra ring
 You may run the Cassandra nodetool which shown bellow to display the status of the ring.
 
@@ -158,6 +160,7 @@ UN  10.244.1.2  117.03 KB  256          100.0%            8f335fe8-4306-431f-a4f
 UN  10.244.1.3  102.2 KB   256          100.0%            f7d90414-187d-458b-acfd-c90919ce9ea6  Kubernetes Cluster
 ```
 <br>
+
 # Step 11: Free the Cassandra Cluster
 In order to free all resources allocated to the Cassandra Cluster and stop it, you may execute the following commands respectively.
 

@@ -58,7 +58,7 @@ It should be noted that all Cassandra Pods are determined by a selector called `
 ## Step 3: Create a Cassandra ClusterIP Service
 A `ClusterIP` Service, which is the default Kubernetes Service, gives us a Service called `ClusterIP` Service inside the cluster and it will be reachable by clients inside the cluster.
 It should be noted that there is no external access by default. If you would like to have access to the `ClusterIP` Service from outside the cluster like the Internet, there different approaches to be used such as making a Kubernetes Proxy.
-Again, it should be noted that all Cassandra Pods are determined by a selector called "cassandra".
+Again, it should be noted that all Cassandra Pods are determined by a selector called `cassandra`.
 
 <br>Create the `YAML` file: [cassandra-clusterip-service.yaml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-clusterip-service.yaml)
 <br><br>

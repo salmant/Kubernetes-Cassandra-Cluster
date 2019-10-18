@@ -4,9 +4,9 @@ NOTE: In order to proceed this guide, prior knowledge of working with the follow
 
 * Kubernetes container-orchestration system (Kubernetes Master and Workers)
 * Cassandra Cluster
+* CQLSH
 * Docker containers
 * YAML
-* CQLSH
 * Amazon EC2 cloud infrastructure
 
 Cassandra is considered as a capable, Cluster-based database system, which can both partition and replicate the data across multiple Cassandra nodes. If we increase the number of Cassandra nodes in the Cluster, database queries are distributed across more compute resources that means the Cluster will be more efficient. Moreover, the data is stored across multiple nodes that means the database Cluster will be more resilient to a failure.
@@ -57,7 +57,7 @@ It should be noted that all Cassandra Pods are determined by a selector called `
 <br>
 ## Step 3: Create a Cassandra clusterIP Service
 A `clusterIP` Service, which is the default Kubernetes Service, gives us a Service called `clusterIP` Service inside the Cluster and it will be reachable by clients inside the Cluster.
-It should be noted that there is no external access by default. If you would like to have access to the `clusterIP` Service from outside the cluster like the Internet, there different approaches to be used such as making a Kubernetes Proxy.
+It should be noted that there is no external access by default. If you would like to have access to the `clusterIP` Service from outside the Cluster like the Internet, there different approaches to be used such as making a Kubernetes Proxy.
 Again, it should be noted that all Cassandra Pods are determined by a selector called `cassandra`.
 
 <br>Create the `YAML` file: [cassandra-clusterip-service.yaml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-clusterip-service.yaml)

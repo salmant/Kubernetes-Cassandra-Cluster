@@ -15,10 +15,10 @@ Cassandra nodes can simply be added to and removed from the Cluster. No node in 
 <br>
 ![Image](https://portworx.com/wp-content/uploads/2017/06/cassandra-failover-2replicas.png)
 <br>
-Here, I explain how to setup a Cassandra Cluster by Kubernetes on Amazon EC2 cloud infrastructure. Before you begin, make sure you have your own Kubernetes cluster initialisied including multiple Kubernetes nodes, and you already configured kubectl.
+Here, I explain how to setup a Cassandra Cluster by Kubernetes on Amazon EC2 cloud infrastructure. Before you begin, make sure you have your own Kubernetes Cluster initialisied including multiple Kubernetes nodes, and you already configured kubectl.
 <br>
 ## Step 1: Create a custom Cassandra Docker image
-There is an environment variable called `CASSANDRA_SEEDS` which needs to be defined if we would like to instantiate a Cassandra Pod as a member of Cassandra cluster.
+There is an environment variable called `CASSANDRA_SEEDS` which needs to be defined if we would like to instantiate a Cassandra Pod as a member of Cassandra Cluster.
 We need to set this environment variable as the IP addresses of already existing Cassandra Pods as seeds. 
 Therefore, if a new Cassandra Pod is instantiated, it should automatically discover all seed Pods' IP addresses via DNS lookups. 
 In Kubernetes, `Headless Service` provides a DNS address for each associated Pod.
@@ -39,10 +39,10 @@ Now you can build the Docker image from the `Dockerfile`.
 <br>
 ## Step 2: Create a Cassandra Headless Service
 A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them.
-Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic.
-While communicating with the Service's cluster IP, each connection to the service is forwarded to one randomly selected backing Pod.
+Although each Pod has a unique IP address, those IPs are not exposed outside the Cluster without a Service. Services allow your applications to receive traffic.
+While communicating with the Service's Cluster IP, each connection to the service is forwarded to one randomly selected backing Pod.
 It should be noted that Services can be exposed in different ways by specifying a type in Service Spec:
-  *  `ClusterIP: 10.x.x.x` This is the default setting. It exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+  *  `clusterIP: 10.x.x.x` This is the default setting. It exposes the Service on an internal IP in the Cluster. This type makes the Service only reachable from within the Cluster.
   *  `clusterIP: None` It is called `Headless Service`. If a client needs to connect to all of those Pods, `Headless Service` makes us able to discover Pod IPs through DNS lookups.
 
 <br>`Headless Service` provides a DNS address for each associated Pod. It means that it allows the system to get the IP addresses of Pods.
@@ -55,9 +55,9 @@ Moreover, all Cassandra Pods should be communicate with each other through two p
 <br><br>
 It should be noted that all Cassandra Pods are determined by a selector called `cassandra`.
 <br>
-## Step 3: Create a Cassandra ClusterIP Service
-A `ClusterIP` Service, which is the default Kubernetes Service, gives us a Service called `ClusterIP` Service inside the cluster and it will be reachable by clients inside the cluster.
-It should be noted that there is no external access by default. If you would like to have access to the `ClusterIP` Service from outside the cluster like the Internet, there different approaches to be used such as making a Kubernetes Proxy.
+## Step 3: Create a Cassandra clusterIP Service
+A `clusterIP` Service, which is the default Kubernetes Service, gives us a Service called `clusterIP` Service inside the Cluster and it will be reachable by clients inside the Cluster.
+It should be noted that there is no external access by default. If you would like to have access to the `clusterIP` Service from outside the cluster like the Internet, there different approaches to be used such as making a Kubernetes Proxy.
 Again, it should be noted that all Cassandra Pods are determined by a selector called `cassandra`.
 
 <br>Create the `YAML` file: [cassandra-clusterip-service.yaml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-clusterip-service.yaml)
@@ -122,7 +122,7 @@ replicationcontroller/cassandra   1         1         1       20s
 <br>
 
 ## Step 9: Scale the Cassandra Cluster
-To start more Cassandra Pods and have them join the cluster, you may scale the Cassandra Replication Controller which is basically created.
+To start more Cassandra Pods and have them join the Cluster, you may scale the Cassandra Replication Controller which is basically created.
 
 `kubectl scale replicationcontroller  cassandra --replicas=2`
 

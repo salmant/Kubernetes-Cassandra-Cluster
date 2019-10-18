@@ -122,7 +122,7 @@ replicationcontroller/cassandra   1         1         1       20s
 ```
 <br>
 
-# Step 9: Scale the Cassandra Cluster
+## Step 9: Scale the Cassandra Cluster
 To start more Cassandra Pods and have them join the cluster, you may scale the Cassandra Replication Controller which is basically created.
 
 `kubectl scale replicationcontroller  cassandra --replicas=2`
@@ -145,7 +145,7 @@ replicationcontroller/cassandra   2         2         2       98s
 ```
 <br>
 
-# Step 10: Check the status of the Cassandra ring
+## Step 10: Check the status of the Cassandra ring
 You may run the Cassandra nodetool which shown bellow to display the status of the ring.
 
 `kubectl exec -it cassandra-rbdpn -- nodetool status`
@@ -161,7 +161,7 @@ UN  10.244.1.3  102.2 KB   256          100.0%            f7d90414-187d-458b-acf
 ```
 <br>
 
-# Step 11: Free the Cassandra Cluster
+## Step 11: Free the Cassandra Cluster
 In order to free all resources allocated to the Cassandra Cluster and stop it, you may execute the following commands respectively.
 
 <br>`kubectl scale rc cassandra --replicas=0`

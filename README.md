@@ -15,7 +15,7 @@ Cassandra nodes can simply be added to and removed from the Cluster. No node in 
 <br>
 ![Image](https://portworx.com/wp-content/uploads/2017/06/cassandra-failover-2replicas.png)
 <br>
-Here, I explain how to setup a Cassandra Cluster by Kubernetes on Amazon EC2 cloud infrastructure. Before you begin, make sure you have your own Kubernetes cluster initialisied including different Kubernetes nodes, and you already configured kubectl.
+Here, I explain how to setup a Cassandra Cluster by Kubernetes on Amazon EC2 cloud infrastructure. Before you begin, make sure you have your own Kubernetes cluster initialisied including multiple Kubernetes nodes, and you already configured kubectl.
 <br>
 ## Step 1: Create a custom Cassandra Docker image
 There is an environment variable called `CASSANDRA_SEEDS` which needs to be defined if we would like to instantiate a Cassandra Pod as a member of Cassandra cluster.
@@ -45,7 +45,7 @@ It should be noted that Services can be exposed in different ways by specifying 
   *  `ClusterIP: 10.x.x.x` This is the default setting. It exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
   *  `clusterIP: None` It is called `Headless Service`. If a client needs to connect to all of those Pods, `Headless Service` makes us able to discover Pod IPs through DNS lookups.
 
-<br>
+<br>`Shell` 
 Headless Service provides a DNS address for each associated Pod. It means that it allows the system to get the IP addresses of Pods.
 Also if Pods themselves need to connect to all the other Pods, we need to create Headless Service.
 For example, if we are going to create a Cassandra Cluster which includes seed Cassandra Pod and other newly extra Cassandra Pods, the Headless Service is necessary.

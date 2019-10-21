@@ -4,7 +4,7 @@ NOTE: In order to proceed this guide, prior knowledge of working with the follow
 
 * Kubernetes container-orchestration system (Kubernetes Master and Workers)
 * Cassandra Cluster
-* CQLSH
+* CQL (Cassandra Query Language)
 * Docker containers
 * YAML
 * Amazon EC2 cloud infrastructure

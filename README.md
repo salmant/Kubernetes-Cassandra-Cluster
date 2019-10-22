@@ -1,4 +1,4 @@
-# Deployment of Cassandra Cluster by Kubernetes
+# Deployment of Multi-node Cassandra Cluster by Kubernetes
 
 NOTE: In order to proceed this guide, prior knowledge of working with the following technologies is highly required:
 

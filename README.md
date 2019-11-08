@@ -82,7 +82,7 @@ In between, the system matches the claim to an available volume and binds them t
 <br>Create the `YAML` file: [cassandra-persistent-volume-claim.yaml](https://github.com/salmant/Kubernetes-Cassandra-Cluster/blob/master/cassandra-persistent-volume-claim.yaml)
 <br><br>
 ## Step 6: Create Cassandra Replication Controller
-`ReplicationController` is used to replicate Pods. It means that `ReplicationController` creates multiple copies of Cassandra Pod and keep them running. 
+`ReplicationController` is used to replicate Pods. It means that `ReplicationController` creates multiple copies of Cassandra Pod and keeps them running. 
 `ReplicationController` makes sure that there is always a especific number of pods running. Default number, if not especified, is a single one. 
 In other words, `ReplicationController` creates by default only one Cassandra Pod, if the replica set number is not determined. 
 

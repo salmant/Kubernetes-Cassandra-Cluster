@@ -145,7 +145,7 @@ replicationcontroller/cassandra   2         2         2       98s
 <br>
 
 ## Step 10: Check the status of the Cassandra ring
-You may run the Cassandra nodetool which shown bellow to display the status of the ring.
+You may run the Cassandra nodetool which is shown bellow to display the status of the ring.
 
 `kubectl exec -it cassandra-rbdpn -- nodetool status`
 

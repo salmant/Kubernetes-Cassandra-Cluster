@@ -122,7 +122,7 @@ replicationcontroller/cassandra   1         1         1       20s
 <br>
 
 ## Step 9: Scale the Cassandra Cluster
-To start more Cassandra Pods and have them join the Cluster, you may scale the Cassandra Replication Controller which is basically created.
+To start more Cassandra Pods and let them join the Cluster, you may scale the Cassandra Replication Controller which is basically created.
 
 `kubectl scale replicationcontroller  cassandra --replicas=2`
 
